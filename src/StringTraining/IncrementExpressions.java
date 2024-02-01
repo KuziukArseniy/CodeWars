@@ -9,16 +9,15 @@ public class IncrementExpressions {
         Matcher matcher = Pattern.compile("\\d+$").matcher(str);
         if (matcher.find()) {
             int lenOfNumber = matcher.group().length();
-            int number = Integer.parseInt(matcher.group());
-            number++;
-            int countNumerals = countOfNumerls(number);
+            BigInteger number = new BigInteger(matcher.group());
+            number = number.add(BigInteger.ONE);
+            int countNumerals = number.toString().length();
             str = deleteLastNumber(str);
             if (lenOfNumber > countNumerals) {
                 for (int i = 0; i < lenOfNumber - countNumerals; i++) {
                     str += 0;
                 }
-                System.out.println(str);
-                return str + number;
+                return str + number.toString();
             }
             str = deleteLastNumber(str);
             return str + number;
@@ -35,14 +34,5 @@ public class IncrementExpressions {
         stringBuilder = new StringBuilder(str);
         str = String.valueOf(stringBuilder.reverse());
         return str;
-    }
-
-    private static int countOfNumerls(int number) {
-        int count = 0;
-        while (number != 0) {
-            number /= 10;
-            count++;
-        }
-        return count;
     }
 }
